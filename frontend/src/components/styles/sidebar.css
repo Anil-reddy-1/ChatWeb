@@ -1,0 +1,94 @@
+.sidebar {
+    width: 40%;
+    padding: 14px;
+    max-width: 320px;
+    max-height: 95vh;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow-y: auto;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    padding: 4px;
+}
+.profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+    border: 0.25px solid #888;
+}
+
+
+.top-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    margin: 4px;
+}
+
+.top-box input {
+    width: 80%;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.expandimg {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.sticky-section {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    padding-bottom: 8px;
+    z-index: 1;
+}
+
+
+.person-card {
+    display: flex;
+    align-items: center;
+    margin: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+
+}
+
+.DP {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+    border: 0.25px solid #888;
+}
+
+.person-name-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.online-dot {
+    color: green;
+    font-weight: bold;
+    font-size: 50px;
+    line-height: 0;
+    position: relative;
+    
+}
