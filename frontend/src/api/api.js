@@ -7,11 +7,12 @@ if (userData)
 else
     token = ""
 const api = axios.create({
-    baseURL: import.meta.env.BACK_URL,
+    baseURL: import.meta.env.VITE_BACK_URL,
     headers: {
         authorization: 'Bearer ' + token
     }
 })
+console.log(import.meta.env.BACK_URL)
 
 export { api }
 
