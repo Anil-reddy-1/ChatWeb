@@ -15,6 +15,7 @@
     margin-bottom: 4px;
     padding: 4px;
 }
+
 .profile {
     width: 40px;
     height: 40px;
@@ -33,7 +34,7 @@
 }
 
 .top-box input {
-    width: 80%;
+    width: 87%;
     padding: 4px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -90,5 +91,22 @@
     font-size: 50px;
     line-height: 0;
     position: relative;
-    
+
+}
+
+.logout {
+    cursor: pointer;
+    color: seashell;
+    background-color: #f63e3e;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    left: 10px;
+    bottom: 20px;
+}
+.logout:hover {
+    background-color: #d73232;
 }
