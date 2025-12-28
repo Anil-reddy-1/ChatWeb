@@ -1,2 +1,0 @@
-# ChatWeb
-socket.io
