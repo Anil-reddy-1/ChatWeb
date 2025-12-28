@@ -89,7 +89,7 @@ io.on("connection", (socket) => {
 
 
 
-mongoose.connect("mongodb+srv://anilreddy5251_db_user:gIAstpx5JE3BOGbl@cluster0.rx4p5vj.mongodb.net/?appName=Cluster0")
+mongoose.connect(process.env.DB_URL)
     .then((res) => {
         console.log("connected to db");
 
