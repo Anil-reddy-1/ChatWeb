@@ -4,7 +4,7 @@ import axios from "axios";
 import { api } from "../api/api";
 
 interface Person {
-    _id: string,
+    id: string,
     name: string,
     isOnline: boolean,
     lastMessage:string,
