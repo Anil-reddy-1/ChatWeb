@@ -93,7 +93,7 @@ mongoose.connect(process.env.DB_URL)
     .then((res) => {
         console.log("connected to db");
         const PORT=process.env.PORT || 5000
-        server.listen(PORT, () => {
+        server.listen(PORT,"0.0.0.0" ,() => {
             console.log("HTTP+socket port activated")
         });
 
