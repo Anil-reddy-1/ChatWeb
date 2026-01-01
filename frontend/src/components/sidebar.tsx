@@ -14,13 +14,17 @@ type Friend = {
     Dp: string,
     chatId:string,
 }
+type FilterFriend = {
+    _id: string,
+    name: string,
+}
 
 
 
 function Sidebar() {
     const [searchString, setSearchString] = useState("");
     const [data, setData] = useState<Friend[]>([]);
-    const [filteredData, setFilteredData] = useState<Friend[]>([]);
+    const [filteredData, setFilteredData] = useState<FilterFriend[]>([]);
     const context = useAuth();
     const personContext = usePerson();
     const [loading, setLoading] = useState(false);
@@ -116,16 +120,17 @@ function Sidebar() {
     }
 
     const searchedPersonHtml = () => {
+        console.log(filteredData)
         return filteredData.map((friend) => (
-            <div className='person-card' key={friend.id} >
-                <img src={friend.Dp || images.DP} alt="DP image" className='DP' />
+            <div className='person-card' key={friend._id} >
+                <img src={ images.DP} alt="DP image" className='DP' />
                 <div className='person-name-container'>
                     <div className='name'>
                         {friend.name}
                     </div>
                     <div className='person-status'>
                         {
-                            <button className='request-button' onClick={() => { sendRequest(friend.id) }}>request</button>
+                            <button className='request-button' onClick={() => { sendRequest(friend._id) }}>request</button>
                             // friend.isOnline ? (<div><span className='online-dot' >.</span> Online</div>)
                             //     : (<div>{friend.lastOnline.toDateString()}</div>)
                         }

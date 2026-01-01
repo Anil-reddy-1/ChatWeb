@@ -82,7 +82,7 @@ route.get("/", Authorization, async (req, res) => {
 route.post("/", Authorization, async (req, res) => {
     try {
         const { friendId } = req.body;
-
+        console.log(friendId,req.userId);
         const alreadyExists = await Friends.findOne({
             userId: req.userId,
             friends: { $elemMatch: { userId: friendId } }
@@ -141,7 +141,7 @@ route.get("/requests", Authorization, async (req, res) => {
                 }
             },
             { $unwind: "$friend" },
-            {
+            { 
                 $project: {
                     _id: "$friends.userId",
                     name: "$friend.name",
