@@ -4,6 +4,25 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
 const User = require("../modal/user.model.js");
 const { Friends } = require("../modal/friends.model.js");
+const cloudinary = require("../cloudinary.js");
+const upload  = require("../middleware/multer.js");
+const { Authorization } = require("../middleware/Authorization.js");
+
+
+route.post("/uploadprofile",upload.single("profile"),Authorization,async (req,res)=>{
+    try {
+        console.log(req.file)
+        const result = await cloudinary.v2.uploader.upload_stream(
+            req.file.path,
+            {folder:"public/"},
+        )
+
+        const data = User.updateOne({_id:req.userId},{Dp:result.secure_url});
+        res.status(200).json({url:result.secure_url,message:"Image updated"})
+    } catch (error) {
+        res.status(500).json({message:"something went wrong"})
+    }
+});
 
 route.post("/", async (req, res) => {
     try {

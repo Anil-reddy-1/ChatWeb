@@ -5,6 +5,7 @@ import { usePerson } from '../Providers/selectPersonContext'
 import { api } from '../api/api'
 import { useAuth } from '../Providers/AuthContext'
 import Modal from './Modal'
+import { AxiosResponse } from 'axios'
 
 type Friend = {
     id: string,
@@ -92,7 +93,7 @@ function Sidebar() {
         try {
             const res = await api.post("/friends", { friendId: id })
             window.alert("Request Sent");
-        } catch (error) {
+        } catch (error:any) {
             console.log(error);
             window.alert(error?.response?.data.message);
         }

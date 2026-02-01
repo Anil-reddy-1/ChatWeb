@@ -16,6 +16,10 @@ const UserSchema = mongoose.Schema({
     isOnline:{
         type:Boolean,
         default:false
+    },
+    Dp:{
+        type: String,
+        
     }
 },{timstamps:true})
 

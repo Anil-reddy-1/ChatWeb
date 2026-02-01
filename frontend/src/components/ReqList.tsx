@@ -26,7 +26,7 @@ function ReqList(props: props) {
             setLoading(true);
             setError(false);
             const res = await api.get("/friends/requests");
-            setRecData(res.data);
+            setRecData([res.data]);
             setLoading(false);
         } catch (error) {
             setError(true);
