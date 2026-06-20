@@ -20,6 +20,7 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
+    position: relative;
 }
 
 .heading h2 {
