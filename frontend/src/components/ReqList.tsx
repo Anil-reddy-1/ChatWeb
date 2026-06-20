@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import images from '../Providers/images'
 import { api } from '../api/api'
 import "./styles/Req.css"
@@ -11,7 +12,8 @@ type Friend = {
 
 type props = {
     reqList: boolean,
-    setReqList:React.Dispatch<React.SetStateAction<boolean>>
+    setReqList:React.Dispatch<React.SetStateAction<boolean>>,
+    loadPersons?: () => void
 }
 
 function ReqList(props: props) {
@@ -51,6 +53,9 @@ function ReqList(props: props) {
         try {
             await api.post("/friends/accept",{friendId:id})
             loadData();
+            if (props.loadPersons) {
+                props.loadPersons();
+            }
         } catch (error) {
             console.log(error);
         }
@@ -76,7 +81,7 @@ function ReqList(props: props) {
         ))
     }
 
-    return props.reqList ? (
+    return props.reqList ? createPortal(
         <div className='req-container' onClick={(e) => { if (e.target === e.currentTarget) props.setReqList(false); }}>
             <div className='container'>
                 <h3>Friend Requests</h3>
@@ -85,7 +90,8 @@ function ReqList(props: props) {
                 {error && (<div style={{color: "var(--error)", textAlign: "center", marginTop: "10px"}}>Oops, an error occurred</div>)}
                 {!loading && !error && PersonHtml()}
             </div>
-        </div>
+        </div>,
+        document.body
     ) : (<></>);
 }
 

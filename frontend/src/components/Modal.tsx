@@ -6,7 +6,8 @@ import { disconnectSocket } from '../api/socket'
 
 
 type propType = {
-  extended: boolean
+  extended: boolean,
+  loadPersons?: () => void
 }
 
 function Modal(props: propType) {
@@ -28,7 +29,7 @@ function Modal(props: propType) {
       <div className='Model-list-item ' onClick={() => { logout() }} >
         <span className='red'>LogOut</span>
       </div>
-      {reqlist && (<ReqList reqList={reqlist} setReqList={setReqList} />)}
+      {reqlist && (<ReqList reqList={reqlist} setReqList={setReqList} loadPersons={props.loadPersons} />)}
     </div>
   ) : (<></>)
 }

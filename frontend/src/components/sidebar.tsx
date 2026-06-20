@@ -151,7 +151,7 @@ function Sidebar() {
                 <div className='heading'>
                     <h2>{context?.user?.name}</h2>
                     <img src={images.DP} alt="profile image" className='profile' onClick={() => { setExtend(prev => !prev) }} />
-                    <Modal extended={extend} />
+                    <Modal extended={extend} loadPersons={loadPersons} />
                 </div>
 
                 <div className='top-box'>
