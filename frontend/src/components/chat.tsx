@@ -16,6 +16,14 @@ type Message = {
     chatId: string
 }
 
+const GUIDE_BOT_MSG: Message = {
+    _id: "guide-msg-1",
+    msg: "Welcome to Chatty Flow! 🎉\n\nHere is a quick guide on how to use the app:\n1. Search for friends using the search bar on the top left.\n2. Send them a request by clicking the 'request' button.\n3. Check your incoming requests by clicking your profile picture on the top left.\n4. Accept requests to start chatting!\n\nEnjoy your stay!",
+    time: new Date(),
+    sender: "guide-bot-123",
+    chatId: "guide-bot-chat"
+}
+
 function Chat() {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState<Message[]>([]);
@@ -37,6 +45,12 @@ function Chat() {
 
     const loadMessages = async () => {
         try {
+            if (personContext?.chatId === "guide-bot-chat") {
+                setMessages([GUIDE_BOT_MSG]);
+                setError("");
+                return;
+            }
+
             if (personContext?.chatId) {
                 setError("");
                 const res = await api.get(`/message/${personContext?.chatId}`)
@@ -58,6 +72,20 @@ function Chat() {
 
 
     const sendMessage = () => {
+        if (!message.trim()) return;
+
+        if (personContext?.chatId === "guide-bot-chat") {
+            setMessages(prev => [...prev, {
+                _id: "user-msg-" + Date.now(),
+                msg: message,
+                time: new Date(),
+                sender: context?.user?.id || "",
+                chatId: "guide-bot-chat"
+            }]);
+            setMessage("");
+            return;
+        }
+
         socket.emit("sendMessage", {
             chatId: personContext?.chatId,
             msg: message,
@@ -117,9 +145,9 @@ function Chat() {
                 {error.length > 0 && (<div className='message-error'>{error}</div>)}
                 {messages.length <= 0 ? (<div className='message-error'>no Messages yet</div>) :
                     messages.map((msg) => (
-                        <div className={`message ${msg.sender === context?.user?.id ? "sent" : "received"}`} key={msg._id}>
+                        <div className={`message ${msg.sender === context?.user?.id ? "sent" : "received"}`} key={msg._id} style={{ whiteSpace: "pre-wrap" }}>
                             {msg.msg}
-                            <span className='timestamp'>{msg.time.toString()}</span>
+                            <span className='timestamp'>{new Date(msg.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                         </div>
                     ))
                 }

@@ -22,6 +22,15 @@ type FilterFriend = {
 
 
 
+const GUIDE_BOT: Friend = {
+    id: "guide-bot-123",
+    name: "Chatty Guide",
+    isOnline: true,
+    lastMessage: "Welcome to Chatty Flow!",
+    Dp: "",
+    chatId: "guide-bot-chat"
+}
+
 function Sidebar() {
     const [searchString, setSearchString] = useState("");
     const [data, setData] = useState<Friend[]>([]);
@@ -37,14 +46,18 @@ function Sidebar() {
             setLoading(true);
             setError(false);
             const personData = await api.get("/friends");
-            setData(personData.data);
+            if (personData.data.length === 0) {
+                setData([GUIDE_BOT]);
+            } else {
+                setData(personData.data);
+            }
             console.log(personData.data)
             setLoading(false)
         } catch (error) {
             setError(true);
             setLoading(false);
             console.log(error);
-            setData([]);
+            setData([GUIDE_BOT]);
         }
     }
 
