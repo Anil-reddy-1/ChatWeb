@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import './styles/chat.css'
 import images from '../Providers/images'
 import { usePerson } from '../Providers/selectPersonContext';
@@ -22,6 +22,15 @@ function Chat() {
     const [error, setError] = useState("");;
     const personContext = usePerson();
     const context = useAuth();
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
 
 
 
@@ -100,7 +109,7 @@ function Chat() {
                     </div>
                 </div>
 
-                <div className='threedots'>.<br />.<br />.</div>
+                <div className='threedots'>⋮</div>
 
             </div>
 
@@ -114,12 +123,12 @@ function Chat() {
                         </div>
                     ))
                 }
-
+                <div ref={messagesEndRef} />
 
             </div>
 
             <div className="input-area">
-                <textarea name='message' value={message} onChange={(e) => setMessage(e.target.value)} placeholder='Type A message...' />
+                <textarea name='message' value={message} onChange={(e) => setMessage(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }} placeholder='Type A message...' />
                 <button type='submit' onClick={sendMessage}>Send</button>
             </div>
 

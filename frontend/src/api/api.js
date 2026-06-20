@@ -1,18 +1,17 @@
 import axios from "axios";
 
-const userData = JSON.parse(localStorage.getItem("ChatUserData"))
-let token;
-if (userData)
-    token = userData.token;
-else
-    token = ""
 const api = axios.create({
-    baseURL: import.meta.env.VITE_BACK_URL,
-    headers: {
-        authorization: 'Bearer ' + token
+    baseURL: import.meta.env.VITE_BACK_URL
+});
+
+api.interceptors.request.use((config) => {
+    const userData = JSON.parse(localStorage.getItem("ChatUserData"));
+    if (userData && userData.token) {
+        config.headers.authorization = 'Bearer ' + userData.token;
     }
-})
-console.log(import.meta.env.BACK_URL)
+    return config;
+}, (error) => {
+    return Promise.reject(error);
+});
 
-export { api }
-
+export { api };

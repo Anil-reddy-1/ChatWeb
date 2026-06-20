@@ -110,9 +110,11 @@ function Sidebar() {
                         </div>
                         <div className='person-status'>
                             
-                                 {friend.isOnline ? (<div><span className='online-dot' >.</span> Online</div>)
-                                    : (<div><span className='online-dot' style={{color:"red"}} >.</span>Offline</div>)}
-                                <div>  {friend.lastMessage|| "send Message"}</div>
+                                <div className='status-row'>
+                                    <span className={`online-dot ${friend.isOnline ? 'online' : 'offline'}`}></span>
+                                    <span>{friend.isOnline ? 'Online' : 'Offline'}</span>
+                                </div>
+                                <div className='message-preview'>{friend.lastMessage || "Send Message"}</div>
                             
                         </div>
                     </div>

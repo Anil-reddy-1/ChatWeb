@@ -1,14 +1,17 @@
-import { io } from 'socket.io-client'
-
-const userData = JSON.parse(localStorage.getItem("ChatUserData"))
-let token;
-if (userData)
-    token = userData.token;
+import { io } from 'socket.io-client';
 
 export const socket = io(import.meta.env.VITE_BACK_URL, {
-    autoConnect: true,
-    auth: {
-        token: token || "",
-    },
-}
-)
+    autoConnect: false,
+});
+
+export const connectSocket = (token) => {
+    if (!token) return;
+    socket.auth = { token };
+    socket.connect();
+};
+
+export const disconnectSocket = () => {
+    if (socket.connected) {
+        socket.disconnect();
+    }
+};

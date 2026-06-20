@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import "./styles/Model.css"
 import ReqList from './ReqList'
 import { useAuth } from '../Providers/AuthContext'
+import { disconnectSocket } from '../api/socket'
 
 
 type propType = {
@@ -16,6 +17,7 @@ function Modal(props: propType) {
     context?.setUser(null);
     localStorage.clear();
     context?.setIsAuthenticated(false);
+    disconnectSocket();
   }
 
   return props.extended ? (

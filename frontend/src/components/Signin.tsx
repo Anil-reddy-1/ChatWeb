@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./styles/SignIn.css"
 import { useAuth } from '../Providers/AuthContext';
 import {api} from '../api/api'
+import { connectSocket } from '../api/socket';
 
 
 function SignIn() {
@@ -17,6 +18,7 @@ function SignIn() {
             const user = JSON.parse(stored);
             context?.setUser(user);
             context?.setIsAuthenticated(true);
+            connectSocket(user.token);
         }
     }, [])
 
@@ -45,6 +47,7 @@ function SignIn() {
             context?.setUser(user)
             context?.setIsAuthenticated(true);
             localStorage.setItem("ChatUserData", JSON.stringify(user))
+            connectSocket(user.token);
             console.log(context?.user);
         } catch (error: any) {
             if (error.response) {
